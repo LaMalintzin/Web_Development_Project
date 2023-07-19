@@ -5,5 +5,12 @@ def create_app():
     # Important to keep secret, but this is just demo project. 
     app.config['SECRET_KEY'] = 'xxxxx xxxxx xxxxx xxxxx'
 
+    from .views import views
+    from .auth import auth
+
+    
+    app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/')
+
     return app
 
