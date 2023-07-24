@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from flask_login import LoginManager
 
 # This file makes it possible for all the other files to access eachother
 
@@ -30,6 +31,16 @@ def create_app():
     
     with app.app_context():  # Enter the application context before creating the database
         create_database(app)
+
+        
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        # Tells flask how we are loading a user by a unique id
+        return User.query.get(int(id))
     
     return app
 
