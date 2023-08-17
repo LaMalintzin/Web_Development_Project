@@ -58,7 +58,8 @@ def sign_up():
             flash('Password must be longer than 7 characters.', category='error')
         else:
             # Defining the user from models.py
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
+            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1,
+                method='sha256'))
             # Add the newly created account to the database
             db.session.add(new_user)
             db.session.commit()
